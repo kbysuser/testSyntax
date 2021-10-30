@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTFh-8">
+    <meta ttp-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<boby>
+    <div class="wrapper">
+        <header>
+            <h4>
+
+            </h4>
+            <form id="from1">
+            </form>
+            <button id="button1">button1:demo remove()</button>
+            <button id="button2">button2</button>
+            <button id="button3">button3</button>
+        </header>
+        <main>
+            <div id="div1">
+            </div>
+        </main>
+        <footer>
+            <font size="2">
+                <br>
+            </font>
+        </footer>
+    </div>
+</boby>
+
+<script>
+    let container = document.createElement("div")
+    container.innnerHTML = "This is a a container."
+    let p1 = document.createElement("p")
+    p1.textContent = "This is p1."
+    let p2 = document.createElement("p")
+    p2.innerHTML = "This is p2."
+    let p3 = document.createElement("p")
+    p3.innerHTML = "This is p3."
+    //demo remove
+    let button1 = document.getElementById("button1")
+    let button2 = document.getElementById("button2")
+    let button3 = document.getElementById("button3")
+
+    button1.addEventListener("click",function(evt){
+        button2.remove()
+        button3.parentElement.removeChild(button3)
+    })
+
+    // demo after before
+    container.appendChild(p2)
+    p2.before(p1)
+    p2.after(p3)
+    p2.after("This is text.")
+    console.log("demo before after")
+    console.log(container.outerHTML)
+
+
+    // demo replaceWith
+    console.log("demo replaceWith")
+    p3.replaceWith(p2)
+    console.log(container.outerHTML)
+    p2.replaceWith("This is replaced p3...")
+    console.log(container.outerHTML)
+
+    //demo prepend append
+    console.log("demo prepend append")
+    let container2 = document.createElement("div")
+    container2.innnerHTML = "This is container2."
+    container2.prepend(p1)
+    container2.append(p2)
+    // console.log(container.outerHTML)
+    console.log(container2.outerHTML)
+    
+    //demo trimStart trimEnd
+    console.log("demo trimStart trimEnd")
+    let greeting = "   Hello   "
+    console.log(greeting.trimStart().trimEnd())
+
+    //demo startsWith endsWith
+    console.log("demo startWith endWith")
+    let str=""
+    console.log("Saturday".startsWith("Sat"))
+    console.log("Sunday".startsWith("Sat"))
+    str = "Cats are the best."
+    console.log(str.endsWith("best",str.length-1))
+    
+    //demo replaceAll
+    console.log("demo replaceAll")
+    str='The quick brown fox jumps over the lazy dog. '
+    str+='If the dog reacted, was it really lazy?'
+    str = str.replaceAll(/dog/ig,"ferret")
+    console.log(str)
+    str = str.replaceAll(/ferret/ig,"monkey")
+    console.log(str)
+
+    // demo find finIndex
+    console.log("demo find")
+    function gt10(x){
+        return (x>10)
+    }
+    let arr = [5,12,8,130,44]
+    let found = arr.find(gt10)
+    console.log(found)
+    let foundIndex = arr.findIndex(gt10) 
+    console.log(foundIndex)
+    
+    // demo codePointAt
+    console.log("demo codePointAt")
+    let icons = "👩🏿🍙🚌"
+    console.log(icons.codePointAt(1))
+    
+    // demo includes
+    console.log("demo includes")
+    let pets = ["cat","dog","bat"]
+    console.log(pets.includes("cat"))
+    console.log(pets.includes("ferret"))
+    
+    //demo Arrow function expressions
+    console.log("demo Arrow function expressions")
+    let conventionalFunc = 
+    function(x){return x*2}
+    console.log(conventionalFunc(2))
+    let arrowFunc = 
+    x => x*2
+    console.log(arrowFunc(2))
+    
+    //demo class
+    console.log("demo class")
+    class Rectangle{
+        constructor(height,width){
+            this.height = height
+            this.width = width
+        }
+        get area(){
+            return this.calcArea()
+        }
+        calcArea(){
+            return this.height * this.width
+        }
+    }
+    let square = new Rectangle(10,7)
+    console.log(square.area)
+    
+    //demo Spread Syntax
+    console.log("demo Spread syntax")
+    let dict1 = {a:"apple",b:"banana"}
+    let dict2 = {...dict1,...{c:"chocolate"}}
+    let dict3 = {...dict2,d:"dog"}
+    console.log(dict3.a+dict3.b+dict3.c+dict3.d)
+
+    //demo for-of
+    console.log("demo for-of")
+    arr = ["apple","banana","chocolate","dog"]
+    for(let item of arr){
+        console.log(item)
+    }
+    
+    //demo Default parameters(デフォルト引数)
+    console.log("demo Default parameters")
+    function addTax(price,taxRate=0.08){
+        return price * (1+taxRate)
+    }
+    console.log(addTax(200,0.05))
+    console.log(addTax(200))
+    
+    //demo Destructing assignment(分割代入)
+    console.log("demo Destructing assignment")
+    let [str1,str2] = ["apple","banana"]
+    console.log(str1+str2)
+    
+    //demo Template literals
+    console.log("demo Template literals")
+    console.log(`I prefer ${str2}s to ${str1}s.`)
+
+    //demo Promise
+    let myPromise = new Promise(function(resolve,reject){
+        setTimeout(function(){
+            resolve("foo")
+        },300)
+    })
+    let success = function(){console.log("Success!")}
+    let fail = function(){console.log("failed")}
+    myPromise.then(success,fail)
+    myPromise.then(success,fail)
+
+
+    
+    
+
+
+    
+
+
+
+
+
+
+</script>
+
+<style>
+    #note {
+        margin: 2em;
+        color: darkblue
+    }
+
+    h3,
+    h4 {
+        color: green;
+    }
+
+    form {
+        margin: 10px 50% 5px 1em;
+    }
+
+    .delete_button {
+        background-color: cyan;
+        padding: 1px 3px 1px 3px;
+        border: groove 5px rgb(39, 39, 138);
+        border-radius: 10px;
+        margin-left: 10px;
+    }
+
+    .delete_button:hover {
+        scale: 1.5;
+        background-color: pink;
+        transition: all 0.8s ease-in;
+    }
+
+    .tsk_content:hover {
+        background-color: pink;
+        transition: all 0.8s ease-out;
+    }
+
+    header,
+    main,
+    footer {
+        width: clamp(200px, 50vw, 500px);
+        flex-basis: auto;
+        display: block;
+    }
+
+    header {
+        border: groove 3px cyan;
+        flex: 1;
+    }
+
+    main {
+        border: groove 3px blue;
+        flex: 0 3 auto;
+        /*  */
+        margin: 10px 0;
+    }
+
+    footer {
+        border: groove 3px green;
+        /* フッタを下にしようとするとリスト
+        が増えたときにかぶる */
+        /* position: absolute;
+        bottom: 0; */
+        flex: 1 0 auto;
+        /* display:box-sizing; */
+
+    }
+
+    div.wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        align-content: center;
+        justify-content: space-around;
+        /* width:clamp(200px,50vw,500px); */
+
+
+    }
+</style>
+
+</html>
