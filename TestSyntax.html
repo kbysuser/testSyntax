@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+
+</head>
+<style>
+    input[type="button"] {
+        background-color: peachpuff;
+    }
+
+    input[type="button"]:hover {
+        background-color: blue;
+        scale: (5);
+
+        transition: 1s ease-out;
+        padding: 10px 10px 10px 10px;
+        margin: 10px 20px 30px 40px;
+    }
+
+    .button:active {
+        scale: (3);
+
+    }
+
+    #mybutton {
+        background-color: darkgoldenrod;
+        border: solid 10px darkblue;
+        scroll-padding-top: 20px;
+        border-radius: 10px;
+
+    }
+
+    #mydate:hover {
+        background-color: blue;
+        border-radius: 10px;
+
+    }
+
+    .container {
+        border: solid 10px #808000;
+        /* height:30px; */
+        counter-reset: cnt-item 0;
+        display: flex;
+    }
+
+    .mytable tr:nth-of-type(2n+1) {
+        background-color: #008888;
+    }
+
+    .mytable tr:nth-of-type(2n) {
+        background-color: #880088;
+    }
+
+    * {
+        border: solid 3px #808080;
+        box-sizing: border-box;
+    }
+
+    .mytable {
+        counter-reset: cnt 0;
+        border: solid 10px #808000;
+        margin: 10px;
+    }
+
+    .item {
+        border: solid 5px #008800;
+        padding: 10px;
+    }
+
+    .item::before {
+        counter-increment: cnt-item 1;
+        content: counter(cnt-item);
+    }
+
+    .mytable tr td:nth-of-type(1)::before {
+        counter-increment: cnt 1;
+        content: counter(cnt);
+    }
+
+    td {
+        padding: 5px;
+    }
+
+    mytext:invalid {
+        background-color: #ff00ff;
+    }
+
+    .mytext:placeholder-shown {
+        background-color: #008800;
+    }
+
+    *:where(:required) {
+        border-color: #ffff00;
+    }
+
+    .myform:focus-within {
+        border-color: #444400;
+    }
+    :invalid{
+        border-color: #880000;
+    }
+</style>
+
+<body>
+    <div class=container>
+        <table class="mytable">
+            <tr>
+                <td>●</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+    </div>
+    <form name="myform" style="border:10px solid ">
+        <input type="button" name="mybutton" id=mybutton value="aaa" class="button"><br>
+        <input type="date" name=mydate id="mydate" class="date"><br>
+        <input type="color" name="mycolor" id="mycolor"><br>
+        <input type="range" name="myrange" id="myrange"><br>
+        <input type="number" ><br>
+        <input type="text" name="mytext" class="mytext" placeholder='pattern="[A-Za-z]+"' pattern="[A-Za-z]+"
+            title="Input the correct text." required><br>
+        <input type="submit" value="submit">
+    </form>
+    <form name="myoutput" style="border:10px solid rgb(119, 63, 184);">
+
+    </form>
+
+</body>
+<script>
+    let mywrite = (index, x) => {
+        document.forms["myoutput"].innerHTML += `<B>#${index}>>${x}</B><br>`
+    }
+    function getMatrixByString(str, sep1, sep2) {
+        return str.split(sep2).filter(x => x != null & x != "")
+            .map(x => x.split(sep1))
+    }
+    function getStringByMatrix(matrix, sep1, sep2) {
+        return matrix.map(x => x.join(sep1)).join(sep2)
+    }
+    document.myform.mycolor.onchange
+        = (e) => { mywrite("color", document.forms.myform.mycolor.value) }
+    document.myform.myrange.onchange
+        = (e) => { mywrite("range", document.forms.myform.myrange.value) };
+    document.myform.mydate.onchange
+        = (e) => { mywrite("date", document.myform.mydate.value.split("-").join("●")) }
+    document.myda
+    let tmp = new String("");
+    let matrix = new Array();
+    matrix = getMatrixByString("Z01:渋谷;Z02:表参道;Z03:青山一丁目;", ":", ";");
+    mywrite(1.1, matrix[2][0])
+    tmp = getStringByMatrix(matrix, "●", "★")
+    mywrite(1.2, tmp);
+    mywrite(2.1, document.forms.myform.mycolor.value)
+
+    let mymap = new Map();
+    mymap.set("Z01", "渋谷")
+    mymap.set()
+    let mymapAdd = (argmap) => { argmap.set("Z02", "青山一丁目") }
+    mymapAdd(mymap);
+    mymap.forEach((v, k) => mywrite("2.2", `${k}:${v}`))
+
+
+
+
+
+</script>
+
+
+</html>
