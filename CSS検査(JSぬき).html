@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+
+</head>
+<style>
+    * {
+        border: 1px solid #808080;
+        box-sizing: border-box;
+        margin:3px;
+    }
+
+    input[type=text] {
+        background-color: #ffff88;
+    }
+
+    @keyframes myframe {
+        from {
+            background-color: #66f;
+        }
+
+        to {
+            background-color:  #f66;
+            scale: 1.1;
+        }
+    }
+
+    input[type=text]:invalid {
+        position: absolute;
+        animation: myframe 0.1s ease-in 0.3s infinite alternate both;
+    }
+    input:is([type=reset],[type=submit]){
+        border: 5px solid #0088ff;
+        border-radius: 3px;
+    }
+</style>
+
+<body>
+    <form >
+        <input type=text pattern="[A-Za-z0-9]{1,}" placeholder="全角NG" title="全角NGです!!"><br>
+        <input type="reset" value="RESET"><br>
+        <input type="submit" value="SUBMIT"><br>
+    </form>
+</body>
+
+</html>
