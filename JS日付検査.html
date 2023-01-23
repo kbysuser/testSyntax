@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<style>
+    * {
+        border: groove 3px #00f;
+    }
+</style>
+
+<body>
+    <div>
+        <form action="form1" id="form1">
+            <label>
+                Date(from)
+                <input type="date" name="date1from" value="2023-01-02">
+            </label>&nbsp;&nbsp;<br>
+            <label>
+                Date(to)
+                <input type="date" name="date1to" value="2023-01-02">
+            </label>&nbsp;&nbsp;<br>
+            <input type="button" value="BUTTON" name="button1" id="button1"><br>
+            <select name="era">
+                <option value="" selected>西暦</option>
+                <option value="R">令和</option>
+                <option value="H">平成</option>
+                <option value="S">昭和</option>
+                <option value="T">大正</option>
+                <option value="M">明治</option>
+            </select>
+            <input type="number" name="year" id="year" style="width:5rem"><br>
+        </form>
+
+    </div>
+</body>
+<script>
+    document.getElementById("year").addEventListener("change", evt => {
+        evt.preventDefault();
+        convYearByWareki(document.forms["form1"]["era"], document.forms["form1"]["year"]);
+    })
+    function convYearByWareki(objEra, objYear) {
+        if (objYear != "") {
+            objYear.value = getYearByWareki(objEra.value + objYear.value);
+            objEra.value = "";
+        }
+    }
+    function getYearByWareki(arg) {
+        let result = arg.replace(/[０-９ａ-ｚＡ-Ｚ]/g, (s) => {
+            return String.fromCharCode(s.charCodeAt(0) - 0xfee0);
+        }).match(/(\D*)(\d+)(\D*)/);
+        let era = result[1].trim().toString();
+        let year = parseInt(result[2]);
+        console.log(era, year);
+        if (["西暦", ""].includes(era)) {
+            year += 0;
+        } else if (["令和", "R"].includes(era)) {
+            year += 2000 + 18;
+        } else if (["平成", "H"].includes(era)) {
+            year += 2000 - 12;
+        } else if (["昭和", "S"].includes(era)) {
+            year += 1900 + 25;
+        } else if (["大正", "T"].includes(era)) {
+            year += 1900 + 11;
+        } else if (["明治", "M"].includes(era)) {
+            year += 1900 - 33;
+        }
+        return year;
+    }
+    class DateFromTo {
+        setObjDate(objDateFrom, objDateTo) {
+            let [s1, s2] = [objDateFrom.value, objDateTo.value];
+            if ([s1, s2].every(x => ![null, undefined, ""].includes(x))) {
+                this.dateFrom = new Date(s1);
+                this.dateTo = new Date(s2);
+                console.log(this.dateFrom, this.dateTo);
+            }
+        }
+        isCorrectOrder() {
+            let ret =
+                [this.dateFrom, this.dateTo]
+                    .map((v, i, a) => v.getTime())
+                    .reduce((pv, cv, ci, a) => a[1] >= a[0]);
+            return ret;
+        }
+        isBothPast() {
+            let ret = [this.dateFrom, this.dateTo]
+                .map((v, i, a) => v.getTime() - Date.now())
+                .every(x => x <= 0);
+                return ret;
+        }
+        check(){
+            return this.isCorrectOrder() & this.isBothPast();
+        }
+    }
+    document.getElementById("button1").addEventListener("click",(evt)=>{
+        evt.preventDefault();
+        let dt = new DateFromTo();
+        dt.setObjDate(document.forms["form1"]["date1from"],document.forms["form1"]["date1to"]);
+        if(!dt.isCorrectOrder()){
+            console.log("前後関係おかしい");
+        }else{
+            console.log("前後関係正しい");
+        }
+        if(!dt.isBothPast()){
+            console.log("未来日は無理");
+        }else{
+            console.log("どちらも過去日");
+        }
+        if(!dt.check()){
+            alert("Something is wrong with date.")
+        }
+    })
+</script>
+
+</html>
